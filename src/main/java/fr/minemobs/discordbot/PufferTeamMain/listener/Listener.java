@@ -117,6 +117,8 @@ public class Listener extends ListenerAdapter {
         try{
             File file = new File("test.json");
 
+            if(!file.exists()) file.createNewFile();
+
             ArrayList<String> stringArray = new ArrayList<>();
 
             for (String s : joinMsg) {
