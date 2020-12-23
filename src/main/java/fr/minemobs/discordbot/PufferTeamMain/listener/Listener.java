@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import fr.minemobs.discordbot.PufferTeamMain.Infos;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.events.DisconnectEvent;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -19,10 +18,9 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 import java.util.Random;
 
-@SuppressWarnings("unchecked")
 public class Listener extends ListenerAdapter {
 
     ArrayList<String> joinMsg = new ArrayList<>();
@@ -94,18 +92,16 @@ public class Listener extends ListenerAdapter {
                     event.getMessage().addReaction("✔").queue();
                 }else{
                     event.getMessage().reply("You don't have the permission to use this command").queue();
-                    event.getMessage().addReaction("❌");
+                    event.getMessage().addReaction("❌").queue();
                 }
             }
         }
     }
 
-    private ArrayList readJsonForJoinMessages() throws IOException {
+    private ArrayList<String> readJsonForJoinMessages() throws IOException {
 
         File file = new File("test.json");
-        if(!file.exists()){
-            file.createNewFile();
-        }
+
         Gson gson = new Gson();
 
         Reader reader = Files.newBufferedReader(file.toPath());
@@ -113,9 +109,7 @@ public class Listener extends ListenerAdapter {
         ArrayList<String> msg = new ArrayList<>();
 
         String[] welcomeMessage = gson.fromJson(reader, String[].class);
-        for (String s : welcomeMessage) {
-            msg.add(s);
-        }
+        Collections.addAll(msg, welcomeMessage);
         return msg;
     }
 

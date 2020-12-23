@@ -2,13 +2,10 @@ package fr.minemobs.discordbot.PufferTeamMain.commands;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import fr.minemobs.discordbot.PufferTeamMain.Infos;
-import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.managers.Presence;
 
-import static fr.minemobs.discordbot.PufferTeamMain.PufferTeamMain.client;
 import static fr.minemobs.discordbot.PufferTeamMain.PufferTeamMain.jda;
 
 public class SetStatusCmd extends Command {
