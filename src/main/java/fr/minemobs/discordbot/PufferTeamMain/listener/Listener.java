@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@SuppressWarnings("unchecked")
 public class Listener extends ListenerAdapter {
 
     ArrayList<String> joinMsg = new ArrayList<>();
@@ -49,7 +50,7 @@ public class Listener extends ListenerAdapter {
 
         String[] joinMsgArray = joinMsg.toArray(new String[joinMsg.size()]);
 
-        String sentMeg = String.format(joinMsgArray[random.nextInt(joinMsgArray.length)], event.getUser().getAsMention());
+        String sentMeg = String.format(joinMsgArray[random.nextInt(joinMsgArray.length)], member);
 
         TextChannel tc = event.getGuild().getSystemChannel();
         tc.sendMessage(sentMeg).queue();
@@ -73,7 +74,7 @@ public class Listener extends ListenerAdapter {
                     event.getChannel().sendMessage("Ok le message à été ajouté").queue();
                     event.getMessage().addReaction("✔").queue();
                     joinMsg.add(formattedMessage);
-                    createJsonForJoinMessages(joinMsg);
+                    createJsonForJoinMessages();
                 }else{
                     event.getMessage().reply("Le message ne contient pas l'argument **%s**").queue();
                     event.getMessage().addReaction("❌").queue();
@@ -96,9 +97,6 @@ public class Listener extends ListenerAdapter {
                     event.getMessage().addReaction("❌");
                 }
             }
-        }else{
-            event.getMessage().reply("Je n'accepte pas les DMs \n" +
-                    "I don't accept DMs").queue();
         }
     }
 
@@ -121,7 +119,7 @@ public class Listener extends ListenerAdapter {
         return msg;
     }
 
-    private void createJsonForJoinMessages(ArrayList<String> message) {
+    private void createJsonForJoinMessages() {
         try{
             File file = new File("test.json");
 

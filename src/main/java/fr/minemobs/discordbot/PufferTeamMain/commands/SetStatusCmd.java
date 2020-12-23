@@ -16,7 +16,8 @@ public class SetStatusCmd extends Command {
     public SetStatusCmd() {
         this.name = "setStatus";
         this.userPermissions = new Permission[]{Permission.ADMINISTRATOR};
-        this.arguments = "<StatusType> <Name of the thing>";
+        this.arguments = "<StatusType> <Name of the activity>";
+        this.cooldown = 15;
         this.guildOnly = true;
         this.help = "Set a status for the bot";
     }
