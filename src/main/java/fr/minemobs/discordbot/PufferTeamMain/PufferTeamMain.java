@@ -2,6 +2,7 @@ package fr.minemobs.discordbot.PufferTeamMain;
 
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
+import fr.minemobs.discordbot.PufferTeamMain.commands.PingCommand;
 import fr.minemobs.discordbot.PufferTeamMain.commands.SetStatusCmd;
 import fr.minemobs.discordbot.PufferTeamMain.listener.Listener;
 import net.dv8tion.jda.api.JDA;
@@ -48,8 +49,10 @@ public class PufferTeamMain {
                     .setEmojis("\uD83D\uDE03", "\uD83D\uDE2E", "\uD83D\uDE26")
                     .setPrefix(Infos.PREFIX.getS())
                     .addCommands(
-                            new SetStatusCmd()
-                    ).setHelpWord("help")
+                            new SetStatusCmd(),
+                            new PingCommand()
+                    )
+                    .setHelpWord("help")
                     .useHelpBuilder(true)
                     .setActivity(Activity.watching("Minemobs developping"))
                     .setStatus(OnlineStatus.DO_NOT_DISTURB);

@@ -2,6 +2,7 @@ package fr.minemobs.discordbot.PufferTeamMain.commands;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import fr.minemobs.discordbot.PufferTeamMain.Categories;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.managers.Presence;
@@ -17,6 +18,7 @@ public class SetStatusCmd extends Command {
         this.cooldown = 15;
         this.guildOnly = true;
         this.help = "Set a status for the bot";
+        this.category = Categories.getStaffCategory();
     }
 
     @Override
@@ -49,8 +51,11 @@ public class SetStatusCmd extends Command {
                             presence.setActivity(Activity.playing(argsExceptTheFirstOne));
                             event.replySuccess("Ok now the activity is " + argsExceptTheFirstOne);
                             break;
+                        case "competing":
+                            presence.setActivity(Activity.competing(argsExceptTheFirstOne));
+                            event.replySuccess("Ok now the activity is " + argsExceptTheFirstOne);
                         default:
-                            event.replyWarning("Please set in the first args **watching** or **listening** or **playing**");
+                            event.replyWarning("Please set in the first args **watching** or **listening** or **playing** or **competing**");
                             break;
                     }
                 }
