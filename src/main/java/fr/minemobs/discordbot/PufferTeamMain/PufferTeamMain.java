@@ -3,6 +3,7 @@ package fr.minemobs.discordbot.PufferTeamMain;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import fr.minemobs.discordbot.PufferTeamMain.commands.PingCommand;
+import fr.minemobs.discordbot.PufferTeamMain.commands.SearchRepo;
 import fr.minemobs.discordbot.PufferTeamMain.commands.SetStatusCmd;
 import fr.minemobs.discordbot.PufferTeamMain.listener.Listener;
 import net.dv8tion.jda.api.JDA;
@@ -25,7 +26,6 @@ public class PufferTeamMain {
     public static Logger LOGGER = LoggerFactory.getLogger(PufferTeamMain.class);
     public static JDA jda;
     public static CommandClientBuilder client;
-    public static String githubToken = "";
 
     public static void main(String[] args) {
         try{
@@ -44,8 +44,6 @@ public class PufferTeamMain {
 
             String ownerId = list.get(0);
 
-            githubToken = list.get(1);
-
             EventWaiter waiter = new EventWaiter();
 
             client = new CommandClientBuilder()
@@ -54,7 +52,8 @@ public class PufferTeamMain {
                     .setPrefix(Infos.PREFIX.getS())
                     .addCommands(
                             new SetStatusCmd(),
-                            new PingCommand()
+                            new PingCommand(),
+                            new SearchRepo()
                     )
                     .setHelpWord("help")
                     .useHelpBuilder(true)
