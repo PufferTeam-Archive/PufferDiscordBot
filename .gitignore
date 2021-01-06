@@ -2,3 +2,4 @@ test
 build
 .gradle
 .idea
+config.txt

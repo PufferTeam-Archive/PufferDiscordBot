@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,7 @@ public class PufferTeamMain {
     public static Logger LOGGER = LoggerFactory.getLogger(PufferTeamMain.class);
     public static JDA jda;
     public static CommandClientBuilder client;
+    public static String githubToken = "";
 
     public static void main(String[] args) {
         try{
@@ -41,6 +43,8 @@ public class PufferTeamMain {
             List<String> list = Files.readAllLines(Paths.get("config.txt"));
 
             String ownerId = list.get(0);
+
+            githubToken = list.get(1);
 
             EventWaiter waiter = new EventWaiter();
 
