@@ -1,0 +1,62 @@
+{
+  "type": "discord-java",
+  "data": {
+    "token": {
+      "type": "string",
+      "desc": "Your token",
+      "display": "TOKEN",
+      "required": true
+    },
+    "mcip": {
+      "type": "string",
+      "desc": "Your minecraft RCON ip",
+      "display": "IPRCON",
+      "required": true
+    },
+    "mcpassword": {
+      "type": "string",
+      "desc": "Your minecraft RCON password",
+      "display": "PASSWORDRCON",
+      "required": true
+    },
+    "memory": {
+      "type": "integer",
+      "desc": "How much memory in MB to allocate to the bot. It is generally recommended to allocated 512MB RAM.",
+      "display": "Memory (MB)",
+      "required": true,
+      "value": "512"
+    }
+  },
+  "display": "PufferBot - Discord",
+  "environment": {
+    "type": "standard"
+  },
+  "install": [
+    {
+      "commands": [
+        "git clone https://github.com/PufferTeam/PufferDiscordBot.git .",
+        "chmod +x gradlew",
+        "./gradlew shadowJar"
+      ],
+      "type": "command"
+    },
+    {
+      "source": "build/libs/puffer*.jar",
+      "target": "pufferteambot.jar",
+      "type": "move"
+    }
+  ],
+  "run": {
+    "command": "java -Xmx${memory}M -Xms${memory}M -jar pufferteambot.jar DISCORD_TOKEN=${token} MC_PASSWORD=${mcpassword} MC_IP=${mcip}",
+    "stop": "stop",
+    "environmentVars": {},
+    "pre": [],
+    "post": []
+  },
+  "supportedEnvironments": [
+    {
+      "type": "standard"
+    }
+  ],
+  "name": "PufferBot"
+}
