@@ -18,13 +18,7 @@ repositories {
     mavenCentral()
 }
 
-ext {
-    javaMainClass = "fr.minemobs.discordbot.PufferTeamMain.PufferTeamMain"
-}
-
-application {
-    mainClassName = javaMainClass
-}
+mainClassName = "fr.minemobs.discordbot.PufferTeamMain.PufferTeamMain"
 
 dependencies {
     implementation 'net.dv8tion:JDA:4.2.0_223'
