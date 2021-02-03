@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id "com.github.johnrengelman.shadow" version "2.0.4"
+    id 'application'
 }
 
 group 'fr.minemobs'
@@ -15,6 +16,14 @@ javadoc.options.encoding = 'UTF-8'
 repositories {
     jcenter()
     mavenCentral()
+}
+
+ext {
+    javaMainClass = "fr.minemobs.discordbot.PufferTeamMain.PufferTeamMain"
+}
+
+application {
+    mainClassName = javaMainClass
 }
 
 dependencies {

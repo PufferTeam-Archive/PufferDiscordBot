@@ -2,4 +2,4 @@ test
 build
 .gradle
 .idea
-config.txt
+pufferpanelTemplate.json
