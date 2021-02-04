@@ -12,7 +12,7 @@ public class McCommand extends Command {
 
     public McCommand(String password, String ip) {
         try {
-            rcon =  new Rcon(ip, 25565, password.getBytes());
+            rcon = new Rcon(ip, 25565, password.getBytes());
         } catch (IOException | AuthenticationException e) {
             e.printStackTrace();
         }

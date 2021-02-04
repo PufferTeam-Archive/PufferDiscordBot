@@ -12,6 +12,8 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.kronos.rkon.core.Rcon;
+import net.kronos.rkon.core.ex.AuthenticationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,8 +28,6 @@ public class PufferTeamMain {
     public static Logger LOGGER = LoggerFactory.getLogger(PufferTeamMain.class);
     public static JDA jda;
     public static CommandClientBuilder client;
-
-    String mcPassword = "";
 
     public static void main(String[] args) {
         try{
@@ -60,8 +60,7 @@ public class PufferTeamMain {
                     .addCommands(
                             new SetStatusCmd(),
                             new PingCommand(),
-                            new SearchRepo(),
-                            new McCommand(mcPassword, mcIp)
+                            new SearchRepo()
                     )
                     .setHelpWord("help")
                     .useHelpBuilder(true)
@@ -72,11 +71,26 @@ public class PufferTeamMain {
                 client.setCoOwnerIds(coOwnersId);
             }
 
+            if(testRCON(mcIp, mcPassword)){
+                client.addCommand(new McCommand(mcPassword, mcIp));
+            }
+
             jda = JDABuilder.createDefault(token).enableIntents(GatewayIntent.GUILD_MEMBERS).build();
             jda.addEventListener(new Listener());
             jda.addEventListener(waiter, client.build());
         }catch (LoginException | IOException e){
             e.printStackTrace();
         }
+    }
+
+    private static boolean testRCON(String ip, String mdp){
+        boolean success = true;
+        try {
+            Rcon rcon = new Rcon(ip, 25565, mdp.getBytes());
+        } catch (IOException | AuthenticationException e) {
+            LOGGER.error(e.getMessage());
+            success = false;
+        }
+        return success;
     }
 }
