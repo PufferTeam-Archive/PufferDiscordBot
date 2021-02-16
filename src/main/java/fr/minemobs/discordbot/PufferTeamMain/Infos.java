@@ -1,7 +1,7 @@
 package fr.minemobs.discordbot.PufferTeamMain;
 
 public enum Infos {
-    PREFIX("*");
+    PREFIX("%");
 
     String s;
     Infos(String s) {

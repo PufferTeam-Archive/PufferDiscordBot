@@ -16,8 +16,8 @@ public class PingCommand extends Command {
 
     @Override
     protected void execute(CommandEvent event) {
-        event.getChannel().sendMessage("Discord : " + PufferTeamMain.jda.getGatewayPing() + " ms").queue();
-        event.getChannel().sendMessage("Api : " + PufferTeamMain.jda.getRestPing().complete() + " ms").queue();
+        event.getChannel().sendMessage("Discord : " + PufferTeamMain.getJda().getGatewayPing() + " ms").queue();
+        event.getChannel().sendMessage("Api : " + PufferTeamMain.getJda().getRestPing().complete() + " ms").queue();
     }
 
 }

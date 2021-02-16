@@ -3,11 +3,10 @@ package fr.minemobs.discordbot.PufferTeamMain.commands;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import fr.minemobs.discordbot.PufferTeamMain.Categories;
+import fr.minemobs.discordbot.PufferTeamMain.PufferTeamMain;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.managers.Presence;
-
-import static fr.minemobs.discordbot.PufferTeamMain.PufferTeamMain.jda;
 
 public class SetStatusCmd extends Command {
 
@@ -30,7 +29,7 @@ public class SetStatusCmd extends Command {
             String[] args = event.getArgs().split("\\s+");
             String argsExceptTheFirstOne = event.getArgs().substring(args[0].length());
 
-            Presence presence = jda.getPresence();
+            Presence presence = PufferTeamMain.getJda().getPresence();
 
             if(args[0].equalsIgnoreCase("reset")){
                 presence.setActivity(Activity.watching("Minemobs developping"));

@@ -1,11 +1,10 @@
 package fr.minemobs.discordbot.PufferTeamMain;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
-import fr.minemobs.discordbot.PufferTeamMain.commands.PingCommand;
-import fr.minemobs.discordbot.PufferTeamMain.commands.SearchRepo;
-import fr.minemobs.discordbot.PufferTeamMain.commands.SetStatusCmd;
-import fr.minemobs.discordbot.PufferTeamMain.commands.McCommand;
+import fr.minemobs.discordbot.PufferTeamMain.commands.*;
 import fr.minemobs.discordbot.PufferTeamMain.listener.Listener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -25,9 +24,11 @@ import java.util.List;
 
 public class PufferTeamMain {
 
-    public static Logger LOGGER = LoggerFactory.getLogger(PufferTeamMain.class);
-    public static JDA jda;
-    public static CommandClientBuilder client;
+    private static Logger LOGGER = LoggerFactory.getLogger(PufferTeamMain.class);
+    private static JDA jda;
+    private static CommandClientBuilder client;
+
+    private static Gson gson = new GsonBuilder().serializeNulls().create();
 
     public static void main(String[] args) {
         try{
@@ -60,7 +61,8 @@ public class PufferTeamMain {
                     .addCommands(
                             new SetStatusCmd(),
                             new PingCommand(),
-                            new SearchRepo()
+                            new SearchRepo(),
+                            new SuggestionCommand()
                     )
                     .setHelpWord("help")
                     .useHelpBuilder(true)
@@ -91,5 +93,21 @@ public class PufferTeamMain {
             success = false;
         }
         return success;
+    }
+
+    public static Logger getLOGGER() {
+        return LOGGER;
+    }
+
+    public static Gson getGson() {
+        return gson;
+    }
+
+    public static JDA getJda() {
+        return jda;
+    }
+
+    public static CommandClientBuilder getClient() {
+        return client;
     }
 }

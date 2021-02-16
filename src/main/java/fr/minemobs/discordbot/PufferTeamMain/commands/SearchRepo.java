@@ -1,7 +1,10 @@
 package fr.minemobs.discordbot.PufferTeamMain.commands;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import fr.minemobs.discordbot.PufferTeamMain.PufferTeamMain;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import org.json.simple.JSONObject;
@@ -17,6 +20,7 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class SearchRepo extends Command {
 
@@ -41,30 +45,33 @@ public class SearchRepo extends Command {
                 Object jsonObj = null;
                 try {
                     jsonObj = parser.parse(reader);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ParseException e) {
+                } catch (IOException | ParseException e) {
                     e.printStackTrace();
                 }
 
                 JSONObject jsonObject = (JSONObject) jsonObj;
-                GithubRndClass githubRndClass = new GithubRndClass((String) jsonObject.get("name"),
-                        (String) jsonObject.get("html_url"), (String) jsonObject.get("created_at"), (String) jsonObject.get("updated_at"),
-                        (String) jsonObject.get("git_url"), (HashMap<String, Object>) jsonObject.get("owner"), (String) jsonObject.get("language"));
+                GithubRndClass githubRndClass = null;
 
-                MessageEmbed eb = new EmbedBuilder()
-                        .setAuthor(githubRndClass.getOwner().get("login").toString(), githubRndClass.getOwner().get("html_url").toString(),
-                                githubRndClass.getOwner().get("avatar_url").toString())
-                        .setImage(githubRndClass.getOwner().get("avatar_url").toString())
-                        .addField("Repository",String.format("[%s](%s)",githubRndClass.name, githubRndClass.html_url), true)
-                        .addField("Most Used Language", githubRndClass.getLanguage(), true)
-                        .setTimestamp(githubRndClass.created_at_date)
-                        .setColor(new Color(26, 188, 156))
-                        .build();
+                try{
+                    githubRndClass = new GithubRndClass((String) Objects.requireNonNull(jsonObject.get("name")),
+                            (String) Objects.requireNonNull(jsonObject.get("html_url")), (String) Objects.requireNonNull(jsonObject.get("created_at")),
+                            (String) Objects.requireNonNull(jsonObject.get("updated_at")), (String) Objects.requireNonNull(jsonObject.get("git_url")),
+                            (HashMap<String, Object>) Objects.requireNonNull(jsonObject.get("owner")), (String) Objects.requireNonNull(jsonObject.get("language")));
 
-                event.getChannel().sendMessage(eb).mentionRepliedUser(true).queue();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
+                    MessageEmbed eb = new EmbedBuilder()
+                            .setAuthor(githubRndClass.getOwner().get("login").toString(), githubRndClass.getOwner().get("html_url").toString(),
+                                    githubRndClass.getOwner().get("avatar_url").toString())
+                            .setImage(githubRndClass.getOwner().get("avatar_url").toString())
+                            .addField("Repository",String.format("[%s](%s)",githubRndClass.name, githubRndClass.html_url), true)
+                            .addField("Most Used Language", githubRndClass.getLanguage(), true)
+                            .setTimestamp(githubRndClass.created_at_date)
+                            .setColor(new Color(26, 188, 156))
+                            .build();
+
+                    event.getChannel().sendMessage(eb).mentionRepliedUser(true).queue();
+                }catch (NullPointerException ex){
+                    event.replyError("Oh no there is an error. Please send a message to minemobs#6904");
+                }
             } catch (FileNotFoundException e){
                 event.replyError("Hey, this url is invalid!");
             } catch (IOException e) {
