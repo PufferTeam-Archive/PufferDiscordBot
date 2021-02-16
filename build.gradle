@@ -17,6 +17,10 @@ javadoc.options.encoding = 'UTF-8'
 
 repositories {
     jcenter()
+    //noinspection GroovyAssignabilityCheck
+    maven {
+        url 'https://jitpack.io'
+    }
     mavenCentral()
 }
 
@@ -28,6 +32,7 @@ dependencies {
     implementation 'com.jagrosh:jda-utilities:3.0.5'
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     compile fileTree(dir: 'libs', include: '*.jar')
+    implementation 'com.github.MrGraversen:minecraft-rcon:0.0.14'
 }
 
 shadowJar {

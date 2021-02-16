@@ -86,9 +86,8 @@ public class PufferTeamMain {
     private static boolean testRCON(String ip, String mdp){
         boolean success = true;
         try {
-            Rcon rcon = new Rcon(ip, 25565, mdp.getBytes());
+            Rcon rcon = new Rcon(ip, 25575, mdp.getBytes());
         } catch (IOException | AuthenticationException e) {
-            LOGGER.error(e.getMessage());
             success = false;
         }
         return success;
