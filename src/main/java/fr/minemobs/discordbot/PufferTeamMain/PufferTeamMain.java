@@ -62,7 +62,8 @@ public class PufferTeamMain {
                             new SetStatusCmd(),
                             new PingCommand(),
                             new SearchRepo(),
-                            new SuggestionCommand()
+                            new SuggestionCommand(),
+                            new EvalCommand()
                     )
                     .setHelpWord("help")
                     .useHelpBuilder(true)
@@ -88,7 +89,7 @@ public class PufferTeamMain {
     private static boolean testRCON(String ip, String mdp){
         boolean success = true;
         try {
-            Rcon rcon = new Rcon(ip, 25575, mdp.getBytes());
+            new Rcon(ip, 25575, mdp.getBytes());
         } catch (IOException | AuthenticationException e) {
             success = false;
         }
