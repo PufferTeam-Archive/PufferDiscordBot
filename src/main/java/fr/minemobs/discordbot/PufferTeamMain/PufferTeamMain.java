@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.security.auth.login.LoginException;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -47,7 +48,9 @@ public class PufferTeamMain {
 
     private static void launchDiscordBot(String token, String mcPassword, String mcIp) {
         try{
-            List<String> list = Files.readAllLines(Paths.get("config.txt"));
+            File config = new File("config.txt");
+            if(!config.exists()) config.createNewFile();
+            List<String> list = Files.readAllLines(Paths.get(config.getName()));
 
             String ownerId = list.get(0);
             String[] coOwnersId = list.get(1).split(",");
